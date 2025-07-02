@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
 
-@Document(collection = "user")
+@Document(collection = "User")
 public class User {
 
     @Id
@@ -21,14 +21,14 @@ public class User {
     public User() {
     }
 
-    public User(String id, String name, String email, String phone, String password) {
+    public User(String id, String name, String email, String phone, String password, Boolean Status) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
         this.created_at = Instant.now();
-        this.status = true;
+        this.status = Status;
     }
 
     public String getId() {

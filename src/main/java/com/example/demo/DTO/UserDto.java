@@ -1,5 +1,7 @@
 package com.example.demo.DTO;
 
+import com.example.demo.Entitys.User;
+
 public class UserDto {
 
     private String id;
@@ -10,12 +12,12 @@ public class UserDto {
 
     public UserDto(){}
 
-    public UserDto(String id, String name, String email, String phone, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.password = password;
+    public UserDto(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
+        this.password = user.getPassword();
     }
 
     public String getId() {
