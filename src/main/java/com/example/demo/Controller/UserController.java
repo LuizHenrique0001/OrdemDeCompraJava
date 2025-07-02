@@ -33,13 +33,13 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> insert(@RequestBody User user){
-        return ResponseEntity.ok().body(service.save(user));
+        return ResponseEntity.status(201).body(service.save(user));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id){
         service.delete(id);
-        return ResponseEntity.status(204).build();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
