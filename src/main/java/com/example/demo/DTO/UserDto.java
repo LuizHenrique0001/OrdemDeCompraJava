@@ -1,34 +1,21 @@
-package com.example.demo.Entitys;
+package com.example.demo.DTO;
 
+public class UserDto {
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.time.Instant;
-
-@Document(collection = "user")
-public class User {
-
-    @Id
     private String id;
     private String name;
     private String email;
     private String phone;
     private String password;
-    private Instant created_at;
-    private Boolean status;
 
-    public User() {
-    }
+    public UserDto(){}
 
-    public User(String id, String name, String email, String phone, String password) {
+    public UserDto(String id, String name, String email, String phone, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.created_at = Instant.now();
-        this.status = true;
     }
 
     public String getId() {
@@ -69,21 +56,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public Instant getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Instant created_at) {
-        this.created_at = created_at;
     }
 }
