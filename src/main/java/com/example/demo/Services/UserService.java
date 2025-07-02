@@ -17,7 +17,7 @@ public class UserService {
     private UserRepository repository;
 
     public List<User> findAll(){
-        return repository.findAll();
+        return repository.findByStatus(true);
     }
 
     public User findById(String id){
@@ -30,14 +30,13 @@ public class UserService {
     }
 
     public User fromDTO(UserDto userDto){
-       return repository.insert(new User(null, userDto.getName(), userDto.getEmail(), userDto.getPhone(), userDto.getPassword()));
+       return repository.insert(new User(null, userDto.getName(), userDto.getEmail(), userDto.getPhone(), userDto.getPassword(), true));
     }
 
     public void update(String id, UserDto userDto){
         User userOrigin = findById(id);
         userOrigin.setName(userDto.getName());
         userOrigin.setEmail(userDto.getEmail());
-        userOrigin.setPhone(userDto.getPhone());
         userOrigin.setPhone(userDto.getPhone());
         repository.save(userOrigin);
     }
