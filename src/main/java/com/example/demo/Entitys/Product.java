@@ -14,7 +14,7 @@ public class Product {
     private Double price;
     private String imgUrl;
 
-    private Category categories;
+    private Integer categories;
 
     public Product() {
     }
@@ -25,7 +25,7 @@ public class Product {
         this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
-        this.categories = categories;
+        setCategories(categories);
     }
 
 
@@ -70,10 +70,12 @@ public class Product {
     }
 
     public Category getCategories() {
-        return categories;
+        return Category.velueOf(categories);
     }
 
     public void setCategories(Category categories) {
-        this.categories = categories;
+        if (categories != null){
+            this.categories = categories.getCode();
+        }
     }
 }
