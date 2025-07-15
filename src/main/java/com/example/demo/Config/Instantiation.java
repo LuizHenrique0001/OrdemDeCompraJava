@@ -1,31 +1,43 @@
 package com.example.demo.Config;
 
+import com.example.demo.DTO.ClientDto;
+import com.example.demo.DTO.OrderItemDto;
+import com.example.demo.DTO.ProductDto;
+import com.example.demo.Entitys.Order;
 import com.example.demo.Entitys.Product;
 import com.example.demo.Entitys.User;
-import com.example.demo.Enum.Category;
+import com.example.demo.Repositories.OrderRepository;
 import com.example.demo.Repositories.ProductRepository;
 import com.example.demo.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.Instant;
 import java.util.Arrays;
 
 import static com.example.demo.Enum.Category.*;
+import static com.example.demo.Enum.OrderStatus.*;
 
 @Configuration
 public class Instantiation implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Override
     public void run(String... args) throws Exception {
 
 
         userRepository.deleteAll();
+        productRepository.deleteAll();
+        orderRepository.deleteAll();
 
         User maria = new User(null, "Maria Brown", "maria@gmail.com","+55 11 98888-1234", "senhaForte123", true);
         User joao = new User(null, "João Pereira", "joao.pereira@gmail.com", "+55 21 97777-4567", "senhaForte123", true);
@@ -43,6 +55,23 @@ public class Instantiation implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(maria, joao, ana, lucas, fernanda, carlos));
         productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+
+        Order o1 = new Order(null, Instant.now(), AGUARDANDO_AUTORIZACAO_A1, new ClientDto(maria));
+        Order o2 = new Order(null, Instant.now(), AGUARDANDO_AUTORIZACAO_A2, new ClientDto(joao));
+        Order o3 = new Order(null, Instant.now(), AGUARDANDO_AUTORIZACAO_A3, new ClientDto(ana));
+
+        orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+        o1.getItems().add(new OrderItemDto(p1, 2));
+        o2.getItems().add(new OrderItemDto(p2, 2));
+        o3.getItems().add(new OrderItemDto(p3, 2));
+
+        maria.getOrders().add(o1);
+        joao.getOrders().add(o2);
+        ana.getOrders().add(o3);
+
+        orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+        userRepository.saveAll(Arrays.asList(maria, joao, ana));
 
     }
 }

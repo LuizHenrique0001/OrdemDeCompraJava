@@ -8,6 +8,8 @@ public class ClientDto {
     private String name;
     private String email;
 
+    public ClientDto(){}
+
     public ClientDto(User user){
         this.id = user.getId();
         this.name = user.getName();

@@ -8,6 +8,8 @@ public class ProductDto {
     private String nameProduct;
     private Double priceProduct;
 
+    public ProductDto(){}
+
     public ProductDto(Product product){
         this.idProduct = product.getId();
         this.nameProduct = getNameProduct();

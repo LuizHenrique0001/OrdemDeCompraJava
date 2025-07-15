@@ -78,4 +78,8 @@ public class Product {
             this.categories = categories.getCode();
         }
     }
+
+    public Double total(Integer quantity){
+        return price * quantity;
+    }
 }

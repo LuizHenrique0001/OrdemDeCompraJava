@@ -11,7 +11,7 @@ public enum OrderStatus {
 
     private int code;
 
-    private OrderStatus(Integer code) {
+    private OrderStatus(int code) {
         this.code = code;
     }
 
@@ -19,7 +19,7 @@ public enum OrderStatus {
         return code;
     }
 
-    public static OrderStatus velueOf(int code) {
+    public static OrderStatus valueOf(int code) {
         for (OrderStatus orderStatus : OrderStatus.values()) {
             if (orderStatus.code == code) {
                 return orderStatus;

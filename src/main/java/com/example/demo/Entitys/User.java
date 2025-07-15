@@ -2,9 +2,12 @@ package com.example.demo.Entitys;
 
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Document(collection = "User")
 public class User {
@@ -15,6 +18,10 @@ public class User {
     private String email;
     private String phone;
     private String password;
+
+    @DBRef(lazy = true)
+    private List<Order> orders = new ArrayList<>();
+
     private Instant created_at;
     private Boolean status;
 
@@ -85,5 +92,9 @@ public class User {
 
     public void setCreated_at(Instant created_at) {
         this.created_at = created_at;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 }
