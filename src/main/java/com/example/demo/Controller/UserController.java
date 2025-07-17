@@ -1,6 +1,8 @@
 package com.example.demo.Controller;
 
+import com.example.demo.DTO.ClientDto;
 import com.example.demo.DTO.UserDto;
+import com.example.demo.Entitys.Order;
 import com.example.demo.Entitys.User;
 import com.example.demo.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +21,21 @@ public class UserController {
     private UserService service;
 
     @GetMapping
-    public ResponseEntity<List<UserDto>> findAll(){
+    public ResponseEntity<List<ClientDto>> findAll(){
         List<User> listUser = service.findAll();
-        List<UserDto> listDTO = listUser.stream().map(x-> new UserDto(x)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDTO);
+        List<ClientDto> users = listUser.stream().map(x-> new ClientDto(x)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(users);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> findById(@PathVariable String id){
         User user = service.findById(id);
         return ResponseEntity.ok().body(user);
+    }
+    @GetMapping("/{id}/orders")
+    public ResponseEntity<List<Order>> findByOrderFromId(@PathVariable String id){
+        User user = service.findById(id);
+        return ResponseEntity.ok().body(user.getOrders());
     }
 
     @PostMapping

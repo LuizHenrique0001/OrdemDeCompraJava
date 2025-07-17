@@ -1,6 +1,7 @@
 package com.example.demo.Entitys;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Document(collection = "User")
 public class User {
@@ -19,9 +21,9 @@ public class User {
     private String phone;
     private String password;
 
+    @JsonIgnore
     @DBRef(lazy = true)
     private List<Order> orders = new ArrayList<>();
-
     private Instant created_at;
     private Boolean status;
 
@@ -74,10 +76,6 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Boolean getStatus() {
         return status;
     }
@@ -96,5 +94,17 @@ public class User {
 
     public List<Order> getOrders() {
         return orders;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

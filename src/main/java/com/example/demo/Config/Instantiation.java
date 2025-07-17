@@ -62,11 +62,11 @@ public class Instantiation implements CommandLineRunner {
 
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 
-        o1.getItems().add(new OrderItemDto(p1, 2));
-        o2.getItems().add(new OrderItemDto(p2, 2));
-        o3.getItems().add(new OrderItemDto(p3, 2));
+        o1.getItems().addAll(Arrays.asList(new OrderItemDto(p1, 2), new OrderItemDto(p2, 3), new OrderItemDto(p3, 4) ));
+        o2.getItems().addAll(Arrays.asList(new OrderItemDto(p2, 2), new OrderItemDto(p1, 3), new OrderItemDto(p3, 4)));
+        o3.getItems().addAll(Arrays.asList(new OrderItemDto(p3, 2), new OrderItemDto(p1, 3), new OrderItemDto(p2, 4)));
 
-        maria.getOrders().add(o1);
+        maria.getOrders().addAll(Arrays.asList(o1, o2));
         joao.getOrders().add(o2);
         ana.getOrders().add(o3);
 
